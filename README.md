@@ -1,1 +1,1 @@
-Just used for tracking my scripts
+Just used for tracking my Apple OS X scripts
