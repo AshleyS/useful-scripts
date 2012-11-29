@@ -5,7 +5,7 @@
 # Licensed under Apache License 2.0
 
 # Changes by Ash START
-$ENV{APACHE_CONFDIR} = '/etc/apache2/';
+$ENV{APACHE_CONFDIR} = '/etc/apache2';
 # Changes by Ash END
 
 use strict;
@@ -44,13 +44,14 @@ if ( $obj eq 'mod' ) {
     $obj    = 'module';
     $dir    = 'mods';
     $sffx   = '.load';
-    $reload = 'restart';
+    #$reload = 'restart';
 }
 else {
     $dir    = 'sites';
     $sffx   = '';
-    $reload = 'reload';
+    #$reload = 'reload';
 }
+$reload = 'graceful';
 $name = ucfirst($obj);
 
 my $confdir  = $ENV{APACHE_CONFDIR}                  || "/etc/apache2$dir_suffix";
@@ -89,7 +90,8 @@ foreach my $acton (@objs) {
     doit($acton) or $rc = 1;
 }
 
-info("Run '/etc/init.d/apache2 $reload' to activate new configuration!\n")
+#info("Run '/etc/init.d/apache2 $reload' to activate new configuration!\n")
+info("Run 'apachectl $reload' to activate new configuration!\n")
     if $request_reload;
 
 exit($rc);
